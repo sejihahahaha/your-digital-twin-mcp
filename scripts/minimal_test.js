@@ -4,14 +4,14 @@ const fs = require('fs')
 const path = require('path')
 
 async function testGroq() {
-  // Load env manually if needed
-  const groqKey = process.env.GROQ_API_KEY || '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'
+  // Load env value from process.env only (keep secrets in .env)
+  const groq_api_key = process.env.GROQ_API_KEY
   
   const locationInfo = 'Based in Tuguegarao City, Philippines. Work preferences: Tuguegarao City, Remote, Hybrid. Philippine Citizen'
   const question = "Where is Krystel from?"
   const prompt = `Based on the following information about yourself, answer the question:\n\nYour Information:\n${locationInfo}\n\nQuestion: ${question}\n\nProvide a helpful, professional response:`
   
-  console.log('Using Groq key:', groqKey ? 'Key found' : 'No key')
+  console.log('Using Groq key:', groq_api_key ? 'Key found' : 'No key')
   console.log('\nPrompt:', prompt)
   
   try {
@@ -19,7 +19,7 @@ async function testGroq() {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${groqKey}`
+        'Authorization': `Bearer ${groq_api_key}`
       },
       body: JSON.stringify({
         model: 'llama-3.1-8b-instant',
