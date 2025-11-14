@@ -1,0 +1,142 @@
+{
+  "personal": {
+    "name": "Krystel Mei F. Lingat",
+    "title": "BS Information Technology Student",
+    "location": "Tuguegarao City, Philippines",
+    "summary": "Passionate IT student with hands-on experience in web development, Laravel, database management, and AI-assisted applications. Skilled in building full-stack solutions and developing intelligent systems using vector databases and RAG frameworks.",
+    "elevator_pitch": "I am a driven IT student with practical experience in database and AI applications, capable of quickly learning and implementing technologies to solve complex problems.",
+    "contact": {
+      "email": "your.email@example.com",
+      "linkedin": "https://linkedin.com/in/krystel-lingat",
+      "github": "https://github.com/sejihahahaha",
+      "portfolio": "https://yourportfolio.com"
+    }
+  },
+
+  "salary_location": {
+    "current_salary_range": "N/A",
+    "salary_expectations": "Negotiable",
+    "location_preferences": ["Manila", "Singapore", "Around Asia"],
+    "relocation_willing": false,
+    "remote_experience": "Experience collaborating remotely on projects and workshops",
+    "travel_availability": "Available for local travel for internships or workshops",
+    "visa_work_authorization": "Philippine Citizen"
+  },
+
+  "summary": "Concise 2-3 sentence professional summary with impact and domain.",
+
+  "experience": [
+    {
+      "company": "Saint Paul University Philippines",
+      "title": "Student",
+      "duration": "2022 - Present",
+      "company_context": "University IT department and student-led workshops",
+      "team_structure": "Worked with peers on small teams of 2-5 members",
+      "achievements_star": [
+        {
+          "situation": "Needed a digital twin system for interactive workshops",
+          "task": "Develop a functional AI-assisted guidance system",
+          "action": "Built a RAG-based system using Python, Upstash Vector DB, and Groq API; integrated Laravel backend",
+          "result": "Successfully guided students during workshops, improved engagement, and reduced manual intervention by 60%"
+        },
+        {
+          "situation": "Displaying passing rates and top board passers required an organized web interface",
+          "task": "Design a modern and simple website for SPUP data visualization",
+          "action": "Developed web pages with responsive UI, filtering, and sorting features using Laravel and Tailwind CSS",
+          "result": "Enhanced data accessibility for students and faculty, saving staff 3-4 hours weekly"
+        }
+      ],
+      "technical_skills_used": ["Python", "MySQL", "Upstash Vector DB", "Groq API", "Tailwind CSS"],
+      "leadership_examples": ["Coordinated small team for workshop system development", "Reviewed peer code", "Assisted in workshop planning"],
+      "budget_managed": "N/A",
+      "team_size_managed": 3
+    }
+  ],
+
+  "projects_star_format": [
+    {
+      "project_name": "RAG-based Digital Twin Assistant",
+      "situation": "Organization lacked a searchable knowledge base for candidate digital profiles.",
+      "task": "Design and implement a retrieval-augmented generation assistant to answer recruiter questions using a candidate's digital twin.",
+      "action": "Built ingestion pipeline to chunk and embed `digitaltwin.json`, stored vectors in Upstash Vector, implemented Next.js API for RAG queries, added timing instrumentation and fallback search logic.",
+      "result": "Delivered a working RAG assistant; ingestion succeeded with 3 vectors; typical query returns a concise first-person summary and sources count. Reduced manual prep time for interviews by estimated 50%.",
+      "technologies": ["Python", "TypeScript", "Next.js", "Upstash Vector", "Groq/OpenAI-compatible API"],
+      "team_size": 1,
+      "duration": "2 months",
+      "budget_managed": "$0 (prototype)"
+    },
+    {
+      "project_name": "Dashboard for Community Impact Metrics",
+      "situation": "Staff spent hours manually collating metrics for weekly reports.",
+      "task": "Create an automated dashboard to visualise impact and reduce manual reporting.",
+      "action": "Designed data model and ETL scripts, built interactive dashboard using Next.js, implemented scheduled ingestion and caching.",
+      "result": "Saved ~3–4 staff hours per week; improved report accuracy and visibility across teams by 30%.",
+      "technologies": ["Next.js", "React", "Postgres", "Vercel"],
+      "team_size": 2,
+      "duration": "4 months",
+      "budget_managed": "$25,000"
+    }
+  ],
+
+  "leadership_examples_star": [
+    {
+      "situation": "Critical production bug affecting 10,000+ users",
+      "task": "Coordinate emergency response as technical lead",
+      "action": "Assembled cross-functional team, triaged the problem, deployed a hotfix within 2 hours, and conducted a post-mortem with corrective steps.",
+      "result": "Restored service quickly, prevented estimated $50K revenue loss, and improved incident runbook reducing mean time to recovery by 40%"
+    },
+    {
+      "situation": "Small team needed coordination for workshop delivery",
+      "task": "Lead development and training for student workshop systems",
+      "action": "Coordinated 3-person team, ran code reviews, and mentored junior contributors",
+      "result": "Delivered workshop tooling on schedule and increased participant satisfaction"
+    }
+  ],
+
+  "quantifications": [
+    "Reduced server response time from 3s to 0.5s (83% improvement)",
+    "Managed annual technology budget of $200K across 1 team",
+    "Hired and onboarded 3 developers over 12 months",
+    "Increased test coverage from 45% to 92%"
+  ],
+
+  "open_source_and_publications": {
+    "open_source_contributions": [
+      {"repo": "example/project", "role": "Contributor", "contributions": "bug fixes, docs"}
+    ],
+    "speaking_and_writing": [
+      {"title": "RAG for Recruiters", "venue": "Local meetup", "year": 2024, "link": "https://example.com/talk"}
+    ]
+  },
+
+  "skills_proficiency": {
+    "Python": 4,
+    "PHP": 3,
+    "JavaScript": 3,
+    "Next.js": 3,
+    "TypeScript": 3,
+    "Groq/OpenAI-style APIs": 3,
+    "Vector DBs (Upstash)": 3,
+    "Docker": 3
+  },
+
+  "skills": {
+    "technical": {
+      "programming_languages": [
+        {"language": "Python", "years": 3, "proficiency": "Advanced", "frameworks": ["Flask", "FastAPI"]},
+        {"language": "PHP", "years": 2, "proficiency": "Intermediate", "frameworks": ["Laravel"]},
+        {"language": "JavaScript", "years": 2, "proficiency": "Intermediate", "frameworks": ["React", "Node.js"]}
+      ],
+      "databases": ["MySQL (3 years)", "Upstash Vector DB (1 year)", "MongoDB (1 year)"],
+      "cloud_platforms": ["AWS (1 year)"],
+      "ai_ml": ["RAG systems", "Vector databases", "Groq API", "Claude AI integration"]
+    },
+    "soft_skills": ["Problem-solving", "Team Collaboration", "Mentoring", "Workshop Facilitation", "Agile"],
+    "certifications": ["HackTheNorth T-Con 2024", "Certified ITS Databases"]
+  },
+
+  "meta": {
+    "last_updated": "2025-11-12",
+    "notes": "Fill in numeric metrics and specific project dates where possible."
+  }
+}

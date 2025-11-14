@@ -1,0 +1,6 @@
+{
+  // Allow MCP features for this workspace. 'all' enables MCP servers to be started.
+  "chat.mcp.access": "all",
+  // Helpful: show experimental Copilot/MCP UI if present
+  "github.copilot.experimental.features": true
+}

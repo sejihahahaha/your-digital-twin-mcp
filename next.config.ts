@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  typescript: {
+    // Scripts folder contains test/dev utilities with external imports
+    tsconfigPath: "./tsconfig.json",
+  },
 };
 
 export default nextConfig;
