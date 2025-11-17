@@ -373,9 +373,9 @@ export async function POST(req: NextRequest) {
         try {
           try {
             // prefer SDK helper if available via import
-            if (typeof (await Promise.resolve()).then === 'function') {
-              // call the named enhanceQuery exported from llm-enhanced-rag
-              // it's already imported as enhanceQueryWithSdk via other route code paths
+            // avoid awaiting Promise.resolve() (invalid); safely check the imported symbol
+            if (typeof enhanceQueryWithSdk === 'function') {
+              // SDK helper is available and will be used below when appropriate
             }
           } catch (_) {}
 
