@@ -51,6 +51,21 @@ export async function POST(req: NextRequest) {
   try {
     const payload = await req.json().catch(() => ({}))
 
+    // Hot-reload profile: load digitaltwin.json from disk and update in-memory cache
+    if (payload.method === "reloadProfile") {
+      try {
+        const newProfile = loadProfileFromAppData()
+        cachedProfile = newProfile
+        // set a quick mtime so fallback logic knows cache was refreshed
+        cachedProfileMtime = Date.now()
+        const chunkCount = buildContextFromProfile(newProfile).length
+        return NextResponse.json({ jsonrpc: "2.0", id: payload.id, result: { status: "ok", chunksLoaded: chunkCount, lastUpdated: newProfile?.meta?.last_updated ?? null } })
+      } catch (err) {
+        console.error("Failed to reload profile:", err)
+        return NextResponse.json({ jsonrpc: "2.0", id: payload.id, error: { message: String(err), code: -32603 } }, { status: 500 })
+      }
+    }
+
     // Handle enhanced query method
     if (payload.method === "enhancedQuery") {
       const userQuestion = payload.params?.question
