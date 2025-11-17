@@ -48,9 +48,9 @@ def load_dotenv_safely(dotenv_path: Path | str = None):
 load_dotenv_safely()
 
 # Use correct environment variable names when reading with os.getenv
-UPSTASH_VECTOR_URL = os.getenv("UPSTASH_VECTOR_REST_URL")
-UPSTASH_VECTOR_TOKEN = os.getenv("UPSTASH_VECTOR_REST_TOKEN")
-GROQ_API_KEY = os.getenv("GROQ_API_KEY")
+UPSTASH_VECTOR_URL = os.getenv("https://curious-bunny-26606-us1-vector.upstash.io")
+UPSTASH_VECTOR_TOKEN = os.getenv("ABcFMGN1cmlvdXMtYnVubnktMjY2MDYtdXMxYWRtaW5OMlkwT0RrME5UUXROakl5T1MwMFlXTTBMVGd6TVRrdFpqTXpNelppTXpsak5UVmw=")
+GROQ_API_KEY = os.getenv("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")
 
 # Create connection to your vector database
 vector_index = Index(url=UPSTASH_VECTOR_URL, token=UPSTASH_VECTOR_TOKEN)

@@ -1,17 +1,17 @@
 {
   "servers": {
-    "digital-twin-mcp": {
+    "digital-twin-production": {
       "name": "Digital Twin MCP",
       "protocol": "mcp-http/1.0",
       "type": "http",
-      "url": "http://localhost:3000/api/mcp",
       "healthcheck": "/api/mcp",
       "healthcheckUrl": "http://localhost:3000/api/mcp",
       "startCommand": "pnpm dev",
       "startTask": "Start Next Dev Server (pnpm dev)",
       "startCwd": "${workspaceFolder}",
       "timeout": 30000,
-      "description": "Digital Twin RAG MCP Server for interview preparation"
+      "url": "https://your-digital-twin-mcp.vercel.app/api/mcp",
+      "description": "Production Digital Twin RAG MCP Server"
     }
   }
 }

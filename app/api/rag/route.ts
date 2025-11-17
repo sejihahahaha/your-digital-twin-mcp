@@ -5,30 +5,32 @@ import fsPromises from "fs/promises"
 import path from "path"
 import { queryVectors, generateWithGroq, buildContextFromProfile } from "../../../lib/rag"
 
-// Load .env.local explicitly if present. Next normally loads .env.local at startup,
-// but being explicit here helps when running the dev server from different CWDs
-// or when testing the API in isolation.
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const dotenv = require("dotenv")
-  const cwd = process.cwd()
-  const candidates = [
-    path.join(cwd, ".env.local"),
-    path.join(cwd, ".env"),
-    path.join(cwd, "../", ".env.local"),
-    path.join(cwd, "../", ".env"),
-  ]
-  for (const p of candidates) {
+// Load .env.local explicitly if present in dev (Vercel provides env vars directly).
+// This helps when running the dev server from different CWDs or testing in isolation.
+const shouldLoadDotenv = process.env.NODE_ENV !== "production" && process.env.VERCEL !== "1"
+if (shouldLoadDotenv) {
+  try {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const fsCheck = require("fs")
-    if (fsCheck.existsSync(p)) {
-      dotenv.config({ path: p })
-      console.debug("[api/rag] Loaded env from", p)
-      break
+    const dotenv = require("dotenv")
+    const cwd = process.cwd()
+    const candidates = [
+      path.join(cwd, ".env.local"),
+      path.join(cwd, ".env"),
+      path.join(cwd, "../", ".env.local"),
+      path.join(cwd, "../", ".env"),
+    ]
+    for (const p of candidates) {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const fsCheck = require("fs")
+      if (fsCheck.existsSync(p)) {
+        dotenv.config({ path: p })
+        console.debug("[api/rag] Loaded env from", p)
+        break
+      }
     }
+  } catch (e) {
+    // ignore if dotenv not available
   }
-} catch (e) {
-  // ignore if dotenv not available
 }
 
 // In-memory cache for the profile file to avoid repeated disk reads in development.

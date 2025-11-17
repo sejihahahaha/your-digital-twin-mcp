@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "digital-twin-production": {
+      "command": "npx",
+      "args": ["-y", "mcp-remote", "https://your-digital-twin-mcp.vercel.app/api/mcp"],
+      "env": {
+        "NODE_ENV": "production"
+      }
+    }
+  }
+}

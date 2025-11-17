@@ -32,6 +32,18 @@ try {
   // ignore if dotenv is not available
 }
 
+// Validate environment at module load. This will throw in production if required
+// variables are missing, and warn in development.
+try {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const cfg = require("./config")
+  if (cfg && typeof cfg.ensureEnv === "function") cfg.ensureEnv()
+} catch (e: any) {
+  // If the config module cannot be loaded, print a warning but continue.
+  // eslint-disable-next-line no-console
+  console.warn("[env] Could not run ensureEnv():", e?.message ?? e)
+}
+
 /**
  * Simple logger utility. Controlled by `DEBUG` env var.
  */
@@ -52,16 +64,27 @@ let cachedIndex: any | null = null
 function getIndex(): any {
   if (cachedIndex) return cachedIndex
   // Accept several env var names used across examples and hosting platforms.
-  const url =
+  // Prefer canonical config module values when available
+  let url =
     process.env.UPSTASH_VECTOR_REST_URL ||
     process.env.NEXT_PUBLIC_UPSTASH_VECTOR_REST_URL ||
     process.env.UPSTASH_VECTOR_URL ||
     process.env.NEXT_PUBLIC_UPSTASH_VECTOR_URL
-  const token =
+  let token =
     process.env.UPSTASH_VECTOR_REST_TOKEN ||
     process.env.NEXT_PUBLIC_UPSTASH_VECTOR_REST_TOKEN ||
     process.env.UPSTASH_VECTOR_TOKEN ||
     process.env.NEXT_PUBLIC_UPSTASH_VECTOR_TOKEN
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const cfg = require("./config")
+    if (cfg) {
+      url = url || cfg.UPSTASH_VECTOR_REST_URL
+      token = token || cfg.UPSTASH_VECTOR_REST_TOKEN
+    }
+  } catch (e) {
+    // ignore if config cannot be required
+  }
   if (!url || !token) {
     throw new Error("UPSTASH_VECTOR_REST_URL and UPSTASH_VECTOR_REST_TOKEN must be set in environment")
   }
@@ -100,24 +123,35 @@ export async function queryVectors(queryText: string, topK = 3, timeoutMs = 8000
 }
 
 /**
- * Call Groq chat completions API. If `GROQ_API_KEY` is missing we return a safe
- * debug preview so callers can continue testing without secrets.
+ * Call Groq chat completions API. Throws a clear error with setup guidance if GROQ_API_KEY is missing.
  */
 export async function generateWithGroq(prompt: string, model = "llama-3.1-8b-instant", timeoutMs = 10000): Promise<string> {
+  const isProduction = process.env.NODE_ENV === "production" || process.env.VERCEL === "1"
   // Accept both server and NEXT_PUBLIC forms.
-  const apiKey = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY
-  // Use Groq's OpenAI-compatible endpoint by default. Allow overriding via env.
-  const apiUrl = process.env.GROQ_API_URL || process.env.NEXT_PUBLIC_GROQ_API_URL || "https://api.groq.com/openai/v1"
+  // Prefer config module values when available
+  let apiKey = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY
+  let apiUrl = process.env.GROQ_API_URL || process.env.NEXT_PUBLIC_GROQ_API_URL || "https://api.groq.com/openai/v1"
+  try {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const cfg = require("./config")
+    if (cfg) {
+      apiKey = apiKey || cfg.GROQ_API_KEY
+      apiUrl = apiUrl || cfg.GROQ_API_URL
+    }
+  } catch (e) {
+    // ignore
+  }
 
   if (!apiKey) {
-    log("debug", "GROQ_API_KEY not set — returning debug preview")
-    return `[DEBUG MODE] Groq key not set. Prompt preview:\n${prompt.slice(0, 2000)}`
+    const guidance = isProduction
+      ? "Set GROQ_API_KEY in Vercel Environment Variables"
+      : "Add GROQ_API_KEY to .env.local"
+    throw new Error(`GROQ_API_KEY not configured. ${guidance}`)
   }
 
   const body = {
     model,
     messages: [
-      { role: "system", content: "You are an AI digital twin. Answer questions as if you are the person, speaking in first person about your background, skills, and experience." },
       { role: "user", content: prompt },
     ],
     temperature: 0.7,
@@ -236,3 +270,80 @@ export function loadProfileFromAppData(): any {
 }
 
 export type ContextChunk = { id: string; title: string; content: string; type: string }
+
+/**
+ * Enhance a user's question for better vector search by using Groq to:
+ * - Add synonyms and related terms
+ * - Expand with interview-specific context
+ * - Improve keyword coverage
+ *
+ * Example: "Tell me about your leadership" → "Discuss your leadership experience, team management, 
+ * mentoring, decision-making, conflict resolution, vision setting, and delegation skills"
+ */
+export async function enhanceQuery(userQuestion: string): Promise<string> {
+  const prompt = `You are an interview preparation assistant. The candidate is preparing to answer interview questions.
+
+User's original question/request: "${userQuestion}"
+
+Improve and expand this question to be more effective for searching a candidate's profile database. 
+Add relevant synonyms, related terms, and interview-relevant context. 
+Return ONLY the enhanced question, nothing else. Keep it under 150 words.`
+
+  try {
+    const enhanced = await generateWithGroq(prompt, "llama-3.1-8b-instant")
+    log("debug", `Query enhanced: "${userQuestion}" → "${enhanced.slice(0, 100)}..."`)
+    return enhanced.trim()
+  } catch (err: any) {
+    log("warn", `Failed to enhance query, using original: ${err?.message}`)
+    return userQuestion
+  }
+}
+
+/**
+ * Format search results and original question into a structured interview response using STAR format.
+ *
+ * Takes the retrieved context chunks and formats them into a compelling, narrative response
+ * that answers the original question. Emphasizes Situation, Task, Action, Result where applicable.
+ *
+ * Example input:
+ *   - originalQuestion: "Tell me about your leadership experience"
+ *   - contextChunks: [{ content: "Led team of 5..." }, ...]
+ *
+ * Example output:
+ *   "In my role at [Company], I had the opportunity to lead a team of 5 engineers. The situation was...
+ *    I took action by... and the result was..."
+ */
+export async function formatForInterview(
+  originalQuestion: string,
+  contextChunks: { id: string; title: string; content: string; type: string }[]
+): Promise<string> {
+  // Build context summary from chunks
+  const contextSummary = contextChunks
+    .map((chunk) => `[${chunk.type.toUpperCase()}] ${chunk.title}: ${chunk.content}`)
+    .join("\n\n")
+
+  const prompt = `You are an experienced interview coach. Your job is to help a candidate prepare a compelling, 
+well-structured response to an interview question using provided profile data.
+
+Original Interview Question: "${originalQuestion}"
+
+Available Profile Data:
+${contextSummary}
+
+Using the profile data above, create a natural, conversational response to the interview question. 
+Follow the STAR format (Situation, Task, Action, Result) where applicable. 
+Make the response sound like the candidate speaking in first person about their experience.
+Keep the response between 150-300 words. Be specific and use concrete examples from the data.
+
+Return ONLY the formatted response, ready to be used as an interview answer.`
+
+  try {
+    const formatted = await generateWithGroq(prompt, "llama-3.1-8b-instant")
+    log("debug", `Formatted response (${formatted.length} chars)`)
+    return formatted.trim()
+  } catch (err: any) {
+    log("warn", `Failed to format response, returning raw context: ${err?.message}`)
+    // Fallback: return raw context if formatting fails
+    return contextSummary
+  }
+}
