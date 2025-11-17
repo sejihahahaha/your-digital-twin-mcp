@@ -29,7 +29,9 @@ const readline = require("readline")
 
 // Try to load dotenv from common locations without overwriting existing envs
 try {
-  const dotenv = require("dotenv")
+  // Use dynamic require to avoid bundlers attempting to resolve dotenv at build time
+  const dynamicRequire = eval("require")
+  const dotenv = dynamicRequire ? dynamicRequire("dotenv") : null
   const cwd = process.cwd()
   const candidates = [
     path.join(cwd, ".env.local"),
@@ -40,7 +42,7 @@ try {
   for (const p of candidates) {
     try {
       if (fs.existsSync(p)) {
-        dotenv.config({ path: p })
+        if (dotenv && typeof dotenv.config === "function") dotenv.config({ path: p })
         break
       }
     } catch (e) {}

@@ -5,31 +5,7 @@ import path from "path"
 const isProduction = process.env.NODE_ENV === "production"
 const isVercel = process.env.VERCEL === "1"
 
-if (!isProduction && !isVercel) {
-  try {
-    // Prefer .env.local then .env
-    const cwd = process.cwd()
-    const candidates = [
-      path.join(cwd, ".env.local"),
-      path.join(cwd, ".env"),
-      path.join(cwd, "../", ".env.local"),
-    ]
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const dotenv = require("dotenv")
-    for (const p of candidates) {
-      try {
-        if (fs.existsSync(p)) {
-          dotenv.config({ path: p })
-          break
-        }
-      } catch (e) {
-        // ignore and continue
-      }
-    }
-  } catch (e) {
-    // ignore if dotenv not installed
-  }
-}
+// Dotenv loading is handled at runtime by `loadDotenvIfPresent()` where needed.
 
 // Expose canonical names for environment variables used across the app
 export const GROQ_API_KEY = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY || ""

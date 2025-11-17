@@ -1,48 +1,5 @@
 import { Index } from "@upstash/vector"
-
-// Attempt to load `.env.local` or `.env` from the app folder or repo root at runtime.
-// Next.js normally loads environment variables at process start, but when running
-// routes locally (or when started in different working directories) being explicit
-// helps make the behavior deterministic. This will not overwrite existing env vars.
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const dotenv = require("dotenv")
-  const path = require("path")
-  const cwd = process.cwd()
-  const candidates = [
-    path.join(cwd, ".env.local"),
-    path.join(cwd, ".env"),
-    path.join(cwd, "../", ".env.local"),
-    path.join(cwd, "../", "data", ".env.local"),
-  ]
-  for (const p of candidates) {
-    try {
-      // safe: only load if file exists
-      const fs = require("fs")
-      if (fs.existsSync(p)) {
-        dotenv.config({ path: p })
-        // stop after first successful load
-        break
-      }
-    } catch (e) {
-      // continue
-    }
-  }
-} catch (e) {
-  // ignore if dotenv is not available
-}
-
-// Validate environment at module load. This will throw in production if required
-// variables are missing, and warn in development.
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const cfg = require("./config")
-  if (cfg && typeof cfg.ensureEnv === "function") cfg.ensureEnv()
-} catch (e: any) {
-  // If the config module cannot be loaded, print a warning but continue.
-  // eslint-disable-next-line no-console
-  console.warn("[env] Could not run ensureEnv():", e?.message ?? e)
-}
+import loadDotenvIfPresent from "./dotenvLoader"
 
 /**
  * Simple logger utility. Controlled by `DEBUG` env var.
@@ -98,6 +55,9 @@ function getIndex(): any {
  * Returns the raw SDK response or throws an Error.
  */
 export async function queryVectors(queryText: string, topK = 3, timeoutMs = 8000): Promise<any> {
+  // Ensure local .env files are loaded in development, without breaking Vercel/Turbopack builds
+  await loadDotenvIfPresent()
+
   const index = getIndex()
   // Wrap SDK promise with a timeout to avoid hanging requests
   const p = index.query({ data: queryText, topK, includeMetadata: true })
@@ -108,93 +68,9 @@ export async function queryVectors(queryText: string, topK = 3, timeoutMs = 8000
     const ms = Date.now() - t0
     log("debug", `Upstash query time: ${ms}ms (topK=${topK})`)
     return res
-  } catch (err: any) {
-    const em = err?.message ?? String(err)
-    // Common situation: index not created with an embedding model
-    if (em.includes("Embedding data for this index is not allowed") || em.includes("embedding")) {
-      log("warn", "Upstash query failed - index does not support embeddings. Create the Upstash Vector index with an embedding model (e.g. groq-embed-1) or re-create the index via the Upstash console/API. Error:", em)
-      // rethrow with actionable hint
-      throw new Error("Upstash index not configured for embeddings. Create index with an embedding model (e.g. groq-embed-1) or set up embeddings before upserting/querying. Original: " + em)
-    }
-
-    log("warn", "Upstash query failed", em)
+  } catch (err) {
+    // bubble up
     throw err
-  }
-}
-
-/**
- * Call Groq chat completions API. Throws a clear error with setup guidance if GROQ_API_KEY is missing.
- */
-export async function generateWithGroq(prompt: string, model = "llama-3.1-8b-instant", timeoutMs = 10000): Promise<string> {
-  const isProduction = process.env.NODE_ENV === "production" || process.env.VERCEL === "1"
-  // Accept both server and NEXT_PUBLIC forms.
-  // Prefer config module values when available
-  let apiKey = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY
-  let apiUrl = process.env.GROQ_API_URL || process.env.NEXT_PUBLIC_GROQ_API_URL || "https://api.groq.com/openai/v1"
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const cfg = require("./config")
-    if (cfg) {
-      apiKey = apiKey || cfg.GROQ_API_KEY
-      apiUrl = apiUrl || cfg.GROQ_API_URL
-    }
-  } catch (e) {
-    // ignore
-  }
-
-  if (!apiKey) {
-    const guidance = isProduction
-      ? "Set GROQ_API_KEY in Vercel Environment Variables"
-      : "Add GROQ_API_KEY to .env.local"
-    throw new Error(`GROQ_API_KEY not configured. ${guidance}`)
-  }
-
-  const body = {
-    model,
-    messages: [
-      { role: "user", content: prompt },
-    ],
-    temperature: 0.7,
-    max_tokens: 500,
-  }
-
-  const controller = new AbortController()
-  const timer = setTimeout(() => controller.abort(), timeoutMs)
-  try {
-    const t0 = Date.now()
-    const resp = await fetch(`${apiUrl}/chat/completions`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify(body),
-      signal: controller.signal,
-    })
-
-    if (!resp.ok) {
-      const text = await resp.text()
-      log("error", "Groq API returned non-OK status", resp.status, text.slice(0, 200))
-      throw new Error(`Groq API error: ${resp.status} ${text}`)
-    }
-
-    const j = await resp.json()
-    const ms = Date.now() - t0
-    log("debug", `Groq request time: ${ms}ms, model=${model}`)
-    // Best-effort parse for several possible response shapes
-    return j.choices?.[0]?.message?.content ?? j.choices?.[0]?.text ?? JSON.stringify(j)
-  } catch (err: any) {
-    // Helpful diagnostics for common network/DNS issues
-    const msg = err?.message ?? String(err)
-    if (msg.includes("getaddrinfo ENOTFOUND") || msg.includes("ENOTFOUND") || msg.includes("fetch failed")) {
-      log("error", "Groq request failed (network/DNS). Ensure GROQ_API_URL is set to 'https://api.groq.com/openai/v1' and network can reach api.groq.com. Error:", msg)
-      throw new Error("Groq request failed (network/DNS). Check GROQ_API_URL and network connectivity: " + msg)
-    }
-
-    log("error", "Groq request failed", msg)
-    throw err
-  } finally {
-    clearTimeout(timer)
   }
 }
 
@@ -215,32 +91,8 @@ export function buildContextFromProfile(profile: any) {
   if (locText && locText.length > 10) chunks.push({ id: "location", title: "Location Info", content: locText, type: "location" })
 
   const experiences = profile?.experience ?? []
-  for (let i = 0; i < experiences.length; i++) {
-    const exp = experiences[i]
-    let expText = `${exp?.title ?? ""} at ${exp?.company ?? ""} (${exp?.duration ?? ""}). `
-    for (const ach of (exp?.achievements_star ?? [])) {
-      expText += `Situation: ${ach?.situation ?? ""}. Task: ${ach?.task ?? ""}. Action: ${ach?.action ?? ""}. Result: ${ach?.result ?? ""}. `
-    }
-    chunks.push({ id: `exp_${i}`, title: exp?.title ?? "", content: expText.trim(), type: "experience" })
-  }
-
-  // Leadership examples structured as STAR entries
-  const leadership = profile?.leadership_examples_star ?? []
-  for (let i = 0; i < leadership.length; i++) {
-    const l = leadership[i]
-    const lText = `Situation: ${l?.situation ?? ""}. Task: ${l?.task ?? ""}. Action: ${l?.action ?? ""}. Result: ${l?.result ?? ""}.`
-    chunks.push({ id: `lead_${i}`, title: `Leadership Example ${i + 1}`, content: lText, type: "leadership" })
-  }
-
-  // Skills may be provided in multiple shapes: `skills` or `skills_proficiency`
-  const skills = profile?.skills ?? {}
-  const skillsProf = profile?.skills_proficiency ?? {}
-  const tech = skills?.technical ?? skillsProf ?? {}
-  const techStr = typeof tech === "object"
-    ? Object.entries(tech).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join(", ")
-    : String(tech)
-  const soft = (skills?.soft_skills ?? []).join(", ")
-  const skillText = `Technical skills: ${techStr}. Soft skills: ${soft}`.trim()
+  const skills = profile?.skills ?? []
+  const skillText = Array.isArray(skills) ? (skills as string[]).join(", ") : String(skills ?? "")
   if (skillText) chunks.push({ id: "skills", title: "Skills", content: skillText, type: "skills" })
 
   // Support different project shapes: `projects_portfolio` or `projects_star_format` from digitaltwin.json
@@ -295,6 +147,73 @@ export function loadProfileFromAppData(): any {
 export type ContextChunk = { id: string; title: string; content: string; type: string }
 
 /**
+ * Make a chat completion call to Groq (or configured GROQ_API_URL) and return
+ * the text content. This lazily loads dotenv if present so local .env files are
+ * honored in development but the module won't break Vercel builds.
+ */
+export async function generateWithGroq(prompt: string, model = "llama-3.1-8b-instant", timeoutMs = 8000): Promise<string> {
+  // ensure dotenv is loaded if available (local dev)
+  await loadDotenvIfPresent()
+
+  let apiKey = process.env.GROQ_API_KEY || process.env.NEXT_PUBLIC_GROQ_API_KEY
+  let apiUrl = process.env.GROQ_API_URL || process.env.NEXT_PUBLIC_GROQ_API_URL || "https://api.groq.com/openai/v1"
+  try {
+    // prefer canonical config if available
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const cfg = require("./config")
+    if (cfg) {
+      apiKey = apiKey || cfg.GROQ_API_KEY
+      apiUrl = apiUrl || cfg.GROQ_API_URL
+    }
+  } catch (e) {
+    // ignore
+  }
+
+  if (!apiKey) {
+    throw new Error("GROQ_API_KEY not configured. Add to .env.local or set in environment")
+  }
+
+  const body = {
+    model,
+    messages: [{ role: "user", content: prompt }],
+    temperature: 0.7,
+    max_tokens: 500,
+  }
+
+  const controller = new AbortController()
+  const timer = setTimeout(() => controller.abort(), timeoutMs)
+  try {
+    const t0 = Date.now()
+    const resp = await fetch(`${apiUrl}/chat/completions`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify(body),
+      signal: controller.signal,
+    })
+
+    if (!resp.ok) {
+      const text = await resp.text()
+      log("error", "Groq API returned non-OK status", resp.status, text.slice(0, 200))
+      throw new Error(`Groq API error: ${resp.status} ${text}`)
+    }
+
+    const j = await resp.json()
+    const ms = Date.now() - t0
+    log("debug", `Groq request time: ${ms}ms, model=${model}`)
+    return (j.choices?.[0]?.message?.content ?? j.choices?.[0]?.text ?? JSON.stringify(j)).toString()
+  } catch (err: any) {
+    const msg = err?.message ?? String(err)
+    log("error", "Groq request failed", msg)
+    throw err
+  } finally {
+    clearTimeout(timer)
+  }
+}
+
+/**
  * Enhance a user's question for better vector search by using Groq to:
  * - Add synonyms and related terms
  * - Expand with interview-specific context
@@ -304,15 +223,15 @@ export type ContextChunk = { id: string; title: string; content: string; type: s
  * mentoring, decision-making, conflict resolution, vision setting, and delegation skills"
  */
 export async function enhanceQuery(userQuestion: string): Promise<string> {
-  const prompt = `You are an interview preparation assistant. The candidate is preparing to answer interview questions.
-
-User's original question/request: "${userQuestion}"
-
-Improve and expand this question to be more effective for searching a candidate's profile database. 
-Add relevant synonyms, related terms, and interview-relevant context. 
-Return ONLY the enhanced question, nothing else. Keep it under 150 words.`
+  const prompt = `You are an interview preparation assistant. The candidate is preparing to answer interview questions.\n\nUser's original question/request: "${userQuestion}"\n\nImprove and expand this question to be more effective for searching a candidate's profile database. Add relevant synonyms, related terms, and interview-relevant context. Return ONLY the enhanced question, nothing else. Keep it under 150 words.`
 
   try {
+
+/**
+ * Make a chat completion call to Groq (or configured GROQ_API_URL) and return
+ * the text content. This lazily loads dotenv if present so local .env files are
+ * honored in development but the module won't break Vercel builds.
+ */
     const enhanced = await generateWithGroq(prompt, "llama-3.1-8b-instant")
     log("debug", `Query enhanced: "${userQuestion}" → "${enhanced.slice(0, 100)}..."`)
     return enhanced.trim()

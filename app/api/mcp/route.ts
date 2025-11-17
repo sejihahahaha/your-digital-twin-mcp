@@ -4,39 +4,11 @@ import fs from "fs"
 import fsPromises from "fs/promises"
 import path from "path"
 import { queryVectors, generateWithGroq, buildContextFromProfile, loadProfileFromAppData } from "../../../lib/rag"
+import loadDotenvIfPresent from "../../../lib/dotenvLoader"
 import { enhanceQuery, formatForInterview } from "@/lib/ai"
 import Groq from "groq-sdk"
 
-// 1. Initialize Groq LLM
-const groq = new Groq({
-  apiKey: process.env.GROQ_API_KEY!,
-})
-
-// Load .env.local explicitly if present. Next normally loads .env.local at startup,
-// but being explicit here helps when running the dev server from different CWDs
-// or when testing the API in isolation.
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const dotenv = require("dotenv")
-  const cwd = process.cwd()
-  const candidates = [
-    path.join(cwd, ".env.local"),
-    path.join(cwd, ".env"),
-    path.join(cwd, "../", ".env.local"),
-    path.join(cwd, "../", ".env"),
-  ]
-  for (const p of candidates) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const fsCheck = require("fs")
-    if (fsCheck.existsSync(p)) {
-      dotenv.config({ path: p })
-      console.debug("[api/rag] Loaded env from", p)
-      break
-    }
-  }
-} catch (e) {
-  // ignore if dotenv not available
-}
+// dotenv is loaded lazily by helpers at runtime via `loadDotenvIfPresent()`
 
 // In-memory cache for the profile file to avoid repeated disk reads in development.
 let cachedProfile: any = null
@@ -301,6 +273,8 @@ Enhanced query must:
 Return ONLY the enhanced query.
   `
 
+  await loadDotenvIfPresent()
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! })
   const response = await groq.chat.completions.create({
     model: "llama-3.1-8b-instant",
     messages: [{ role: "user", content: prompt }],
@@ -344,6 +318,8 @@ Write a response that:
 Final Answer:
   `
 
+  await loadDotenvIfPresent()
+  const groq = new Groq({ apiKey: process.env.GROQ_API_KEY! })
   const response = await groq.chat.completions.create({
     model: "llama-3.1-8b-instant",
     messages: [{ role: "user", content: prompt }],

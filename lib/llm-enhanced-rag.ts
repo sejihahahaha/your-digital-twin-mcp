@@ -57,7 +57,7 @@ Add synonyms, variations, and related terms. Return ONLY the enhanced query.`
   } catch (err) {
     // Log and return original query as a safe fallback
     // eslint-disable-next-line no-console
-    console.warn('enhanceQueryWithSdk failed, falling back to original query:', err?.message ?? err)
+    console.warn('enhanceQueryWithSdk failed, falling back to original query:', String(err))
     return originalQuery
   }
 }
@@ -128,7 +128,7 @@ Respond in first person, using STAR format with examples and metrics.`
     return context || 'Unable to generate response'
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.warn('formatForInterview failed, falling back to raw context:', err?.message ?? err)
+    console.warn('formatForInterview failed, falling back to raw context:', String(err))
     return context || 'Unable to generate response'
   }
 }

@@ -45,7 +45,7 @@ export async function contextAwareRAG(question: string, interviewType: Interview
     enhancedQuery = await enhanceQuery(contextualQuestion)
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.warn('[rag-config] enhanceQuery failed, using contextual question:', err?.message ?? err)
+    console.warn('[rag-config] enhanceQuery failed, using contextual question:', String(err))
     enhancedQuery = contextualQuestion
   }
 
@@ -60,7 +60,7 @@ export async function contextAwareRAG(question: string, interviewType: Interview
     }
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.warn('[rag-config] queryVectors failed, falling back to empty docs:', err?.message ?? err)
+    console.warn('[rag-config] queryVectors failed, falling back to empty docs:', String(err))
     docs = []
   }
 
@@ -79,7 +79,7 @@ Style: ${cfg.responseStyle}`
     return response
   } catch (err) {
     // eslint-disable-next-line no-console
-    console.error('[rag-config] generateWithGroq failed:', err?.message ?? err)
+    console.error('[rag-config] generateWithGroq failed:', String(err))
     // Fallback: return combined context and original question
     return `Context:\n${context}\n\nQuestion:\n${question}`
   }

@@ -6,28 +6,7 @@ import path from "path"
 import { queryVectors, generateWithGroq, buildContextFromProfile, enhanceQuery as enhanceQueryFetch, formatForInterview as formatForInterviewFetch } from "../../../lib/rag"
 import enhanceQueryWithSdk, { formatForInterview as formatForInterviewSdk } from "../../../lib/llm-enhanced-rag"
 
-// Load .env.local explicitly
-try {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  const dotenv = require("dotenv")
-  const cwd = process.cwd()
-  const candidates = [
-    path.join(cwd, ".env.local"),
-    path.join(cwd, ".env"),
-    path.join(cwd, "../", ".env.local"),
-    path.join(cwd, "../", ".env"),
-  ]
-  for (const p of candidates) {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const fsCheck = require("fs")
-    if (fsCheck.existsSync(p)) {
-      dotenv.config({ path: p })
-      break
-    }
-  }
-} catch (e) {
-  // ignore
-}
+// dotenv is loaded lazily by `loadDotenvIfPresent()` in runtime helpers
 
 let cachedProfile: any = null
 let cachedProfileMtime = 0
@@ -284,6 +263,7 @@ export async function POST(req: NextRequest) {
       if (toolName === "compare_rag") {
         const question = typeof toolParams?.question === "string" ? toolParams.question.trim() : ""
         let topK = Number(toolParams.topK ?? 3)
+        const mode = typeof toolParams?.mode === "string" ? toolParams.mode : undefined
 
         if (!question) {
           return NextResponse.json({
