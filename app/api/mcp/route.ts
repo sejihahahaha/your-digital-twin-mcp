@@ -3,7 +3,7 @@ import { NextResponse } from "next/server"
 import fs from "fs"
 import fsPromises from "fs/promises"
 import path from "path"
-import { queryVectors, generateWithGroq, buildContextFromProfile } from "../../../lib/rag"
+import { queryVectors, generateWithGroq, buildContextFromProfile, loadProfileFromAppData } from "../../../lib/rag"
 import { enhanceQuery, formatForInterview } from "@/lib/ai"
 import Groq from "groq-sdk"
 
@@ -88,7 +88,18 @@ export async function POST(req: NextRequest) {
         debugLog("Enhanced query:", enhanced)
 
         // 2. Do RAG search using enhanced query
-        const chunks = buildContextFromProfile({})
+        // Load the latest profile from app data (falls back to cachedProfile)
+        let profileForQuery: any = {}
+        try {
+          profileForQuery = loadProfileFromAppData()
+          // update local cache
+          cachedProfile = profileForQuery
+        } catch (pfErr) {
+          debugLog("Could not load profile from app data, using cached or empty profile:", String(pfErr))
+          profileForQuery = cachedProfile || {}
+        }
+
+        const chunks = buildContextFromProfile(profileForQuery)
         let topDocs: string[] = []
         try {
           const res = await queryVectors(enhanced, 3)

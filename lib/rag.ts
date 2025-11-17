@@ -211,7 +211,7 @@ export function buildContextFromProfile(profile: any) {
   if (personalText) chunks.push({ id: "personal", title: "Personal Info", content: personalText, type: "personal" })
 
   // Add location context as separate chunk for better matches
-  const locText = `Based in ${personal?.location ?? ""}. Work preferences: ${(salaryLoc?.location_preferences ?? []).join(", ")}. ${salaryLoc?.work_authorization ?? ""}`.trim()
+  const locText = `Based in ${personal?.location ?? ""}. Work preferences: ${(salaryLoc?.location_preferences ?? []).join(", ")}. ${salaryLoc?.visa_work_authorization ?? salaryLoc?.work_authorization ?? ""}`.trim()
   if (locText && locText.length > 10) chunks.push({ id: "location", title: "Location Info", content: locText, type: "location" })
 
   const experiences = profile?.experience ?? []
@@ -224,18 +224,41 @@ export function buildContextFromProfile(profile: any) {
     chunks.push({ id: `exp_${i}`, title: exp?.title ?? "", content: expText.trim(), type: "experience" })
   }
 
+  // Leadership examples structured as STAR entries
+  const leadership = profile?.leadership_examples_star ?? []
+  for (let i = 0; i < leadership.length; i++) {
+    const l = leadership[i]
+    const lText = `Situation: ${l?.situation ?? ""}. Task: ${l?.task ?? ""}. Action: ${l?.action ?? ""}. Result: ${l?.result ?? ""}.`
+    chunks.push({ id: `lead_${i}`, title: `Leadership Example ${i + 1}`, content: lText, type: "leadership" })
+  }
+
+  // Skills may be provided in multiple shapes: `skills` or `skills_proficiency`
   const skills = profile?.skills ?? {}
-  const tech = skills?.technical ?? {}
-  const techStr = Object.entries(tech).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join(", ")
+  const skillsProf = profile?.skills_proficiency ?? {}
+  const tech = skills?.technical ?? skillsProf ?? {}
+  const techStr = typeof tech === "object"
+    ? Object.entries(tech).map(([k, v]) => `${k}: ${JSON.stringify(v)}`).join(", ")
+    : String(tech)
   const soft = (skills?.soft_skills ?? []).join(", ")
   const skillText = `Technical skills: ${techStr}. Soft skills: ${soft}`.trim()
   if (skillText) chunks.push({ id: "skills", title: "Skills", content: skillText, type: "skills" })
 
-  const projects = profile?.projects_portfolio ?? []
+  // Support different project shapes: `projects_portfolio` or `projects_star_format` from digitaltwin.json
+  const projects = profile?.projects_portfolio ?? profile?.projects_star_format ?? []
   for (let i = 0; i < projects.length; i++) {
     const proj = projects[i]
-    const projText = `${proj?.name ?? ""}: ${proj?.description ?? ""}. Technologies: ${(proj?.technologies ?? []).join(", ")}. Impact: ${proj?.impact ?? ""}.`.trim()
-    chunks.push({ id: `proj_${i}`, title: proj?.name ?? "", content: projText, type: "project" })
+    // If project uses STAR fields, adapt accordingly
+    const projText = proj?.project_name
+      ? `${proj?.project_name}: Situation: ${proj?.situation ?? ""}. Task: ${proj?.task ?? ""}. Action: ${proj?.action ?? ""}. Result: ${proj?.result ?? ""}. Technologies: ${(proj?.technologies ?? []).join(", ")}.`.trim()
+      : `${proj?.name ?? ""}: ${proj?.description ?? ""}. Technologies: ${(proj?.technologies ?? []).join(", ")}. Impact: ${proj?.impact ?? ""}.`.trim()
+    chunks.push({ id: `proj_${i}`, title: proj?.project_name ?? proj?.name ?? `Project ${i + 1}`, content: projText, type: "project" })
+  }
+
+  // Quantifications and highlights
+  const quants = profile?.quantifications ?? []
+  for (let i = 0; i < quants.length; i++) {
+    const q = quants[i]
+    chunks.push({ id: `quant_${i}`, title: `Quantification ${i + 1}`, content: String(q), type: "quantification" })
   }
 
   return chunks
