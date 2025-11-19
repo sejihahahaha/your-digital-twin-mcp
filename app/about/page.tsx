@@ -215,7 +215,16 @@ export default function AboutPage() {
           <p>
             © 2024 Digital Twin. Built with{" "}
             <span className="text-red-600 dark:text-red-500">Next.js 16</span>,
-            Groq, and <NavLink href="#">Upstash</NavLink>.
+            Groq, and{" "}
+            <a
+              href="https://upstash.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-red-600 dark:text-red-500 hover:text-red-700 dark:hover:text-red-400 transition"
+            >
+              Upstash
+            </a>
+            .
           </p>
         </div>
       </footer>
