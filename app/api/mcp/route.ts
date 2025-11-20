@@ -3,9 +3,8 @@ import { NextResponse } from "next/server"
 import fs from "fs"
 import fsPromises from "fs/promises"
 import path from "path"
-import { queryVectors, generateWithGroq, buildContextFromProfile, loadProfileFromAppData } from "../../../lib/rag"
+import { queryVectors, generateWithGroq, buildContextFromProfile, loadProfileFromAppData, enhanceQuery, formatForInterview } from "../../../lib/rag"
 import loadDotenvIfPresent from "../../../lib/dotenvLoader"
-import { enhanceQuery, formatForInterview } from "@/lib/ai"
 import Groq from "groq-sdk"
 
 // dotenv is loaded lazily by helpers at runtime via `loadDotenvIfPresent()`
