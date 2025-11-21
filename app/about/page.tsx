@@ -1,233 +1,99 @@
-/**
- * /about/page.tsx
- * 
- * About page for the digital twin portfolio.
- * 
- * FIX PATTERN:
- * - This Server Component does NOT use "use client"
- * - It imports Client Components (NavLink, ActionButton) which handle onClick
- * - This is the correct Next.js 16 App Router pattern:
- *   * Server Component renders the layout and data
- *   * Client Components are imported for interactive elements
- * - The dark-red (#dc2626) + black theme is preserved throughout
- */
+import { Navigation } from "@/components/navigation"
+import { Button } from "@/components/ui/button"
 
-import NavLink from "@/components/NavLink"
-import CTASection from "@/components/CTASection"
-
-export const metadata = {
-  title: "About - Digital Twin",
-  description: "Learn about this digital twin portfolio",
-}
-
-export default function AboutPage() {
+export default function About() {
   return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Navigation Header */}
-      <header className="border-b border-red-600 dark:border-red-700">
-        <nav className="mx-auto max-w-4xl px-6 py-4 flex items-center justify-between">
-          <div className="text-2xl font-bold text-red-600 dark:text-red-500">
-            DT
-          </div>
-          <div className="flex gap-6">
-            <NavLink href="/">Home</NavLink>
-            <NavLink href="/about">About</NavLink>
-          </div>
-        </nav>
-      </header>
+    <div className="w-full bg-black text-white min-h-screen">
+      {/* Navigation */}
+      <Navigation />
 
-      {/* Main Content */}
-      <main className="mx-auto max-w-4xl px-6 py-12">
-        {/* Hero Section */}
-        <section className="mb-16">
-          <h1 className="text-5xl font-bold mb-4 text-white">
-            About This{" "}
-            <span className="text-red-600 dark:text-red-500">Digital Twin</span>
-          </h1>
-          <p className="text-xl text-zinc-300 leading-relaxed max-w-2xl">
-            This is an AI-powered digital twin that can answer questions about a
-            person's professional background, skills, and experience using
-            advanced retrieval-augmented generation (RAG) and the Groq API.
-          </p>
-        </section>
+      <div className="max-w-4xl mx-auto px-6 pt-32 pb-20">
+        <h1 className="text-5xl font-bold mb-8 text-red-400">About Me</h1>
 
-        {/* Features Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-white">
-            Key <span className="text-red-600 dark:text-red-500">Features</span>
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Feature Card 1 */}
-            <div className="border-l-4 border-red-600 dark:border-red-500 pl-6 py-4">
-              <h3 className="text-xl font-semibold mb-2 text-red-600 dark:text-red-500">
-                Vector Search
-              </h3>
-              <p className="text-zinc-300">
-                Semantic search across professional profile data using Upstash
-                Vector database for accurate retrieval.
+        <div className="space-y-12">
+          {/* Personal Info */}
+          <section>
+            <h2 className="text-3xl font-bold mb-4">Krystel Lingat</h2>
+            <p className="text-lg text-gray-300 leading-relaxed mb-4">
+              BS Information Technology Major in AI | Database Certified
+            </p>
+            <p className="text-lg text-gray-300 leading-relaxed">Saint Paul University Philippines</p>
+          </section>
+
+          {/* Biography */}
+          <section className="border-t border-red-900/30 pt-8">
+            <h2 className="text-3xl font-bold mb-4 text-red-400">My Journey</h2>
+            <div className="space-y-4 text-gray-300 leading-relaxed">
+              <p>
+                I'm a passionate AI and database specialist with a deep love for building intelligent systems. My
+                journey in tech began with a curiosity about how machines learn and think, which led me to pursue a
+                degree in Information Technology with a major in AI.
+              </p>
+              <p>
+                Throughout my academic and professional career, I've focused on creating practical AI solutions,
+                particularly in the area of Retrieval Augmented Generation (RAG) systems, chatbots, and intelligent
+                information retrieval. I believe in the power of technology to solve real-world problems.
+              </p>
+              <p>
+                Beyond coding, I'm known for being friendly, humorous, and approachable—though I tend to get a bit shy
+                when talking about certain topics. What really gets me excited is diving deep into complex technical
+                challenges and emerging with elegant solutions.
               </p>
             </div>
+          </section>
 
-            {/* Feature Card 2 */}
-            <div className="border-l-4 border-red-600 dark:border-red-500 pl-6 py-4">
-              <h3 className="text-xl font-semibold mb-2 text-red-600 dark:text-red-500">
-                AI Responses
-              </h3>
-              <p className="text-zinc-300">
-                Natural language responses powered by Groq's fast AI inference,
-                speaking in first person about the profile.
-              </p>
-            </div>
-
-            {/* Feature Card 3 */}
-            <div className="border-l-4 border-red-600 dark:border-red-500 pl-6 py-4">
-              <h3 className="text-xl font-semibold mb-2 text-red-600 dark:text-red-500">
-                MCP Integration
-              </h3>
-              <p className="text-zinc-300">
-                Built with the Model Context Protocol for seamless AI tool
-                integration and extensibility.
-              </p>
-            </div>
-
-            {/* Feature Card 4 */}
-            <div className="border-l-4 border-red-600 dark:border-red-500 pl-6 py-4">
-              <h3 className="text-xl font-semibold mb-2 text-red-600 dark:text-red-500">
-                Real-time Chat
-              </h3>
-              <p className="text-zinc-300">
-                Interactive chat interface for asking questions and getting
-                instant answers about the profile.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        {/* Technology Stack Section */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold mb-8 text-white">
-            Tech <span className="text-red-600 dark:text-red-500">Stack</span>
-          </h2>
-          <div className="bg-zinc-900 border border-red-600 dark:border-red-500 rounded-lg p-8">
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              <div>
-                <p className="font-semibold text-red-600 dark:text-red-500 mb-2">
-                  Frontend
-                </p>
-                <ul className="text-sm text-zinc-300 space-y-1">
-                  <li>• Next.js 16</li>
-                  <li>• React 19</li>
-                  <li>• TypeScript</li>
-                  <li>• Tailwind CSS</li>
+          {/* Personality & Values */}
+          <section className="border-t border-red-900/30 pt-8">
+            <h2 className="text-3xl font-bold mb-4 text-red-400">Personality & Values</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="p-6 rounded-lg border border-red-900/30 bg-red-900/5">
+                <h3 className="font-bold text-red-400 mb-2">Traits</h3>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• Curious and detail-oriented</li>
+                  <li>• Friendly and approachable</li>
+                  <li>• Tech-passionate problem solver</li>
+                  <li>• Humorous and somewhat shy</li>
+                  <li>• Continuous learner</li>
                 </ul>
               </div>
-              <div>
-                <p className="font-semibold text-red-600 dark:text-red-500 mb-2">
-                  Backend
-                </p>
-                <ul className="text-sm text-zinc-300 space-y-1">
-                  <li>• Node.js</li>
-                  <li>• Groq API</li>
-                  <li>• Upstash Vector</li>
-                  <li>• MCP Server</li>
-                </ul>
-              </div>
-              <div>
-                <p className="font-semibold text-red-600 dark:text-red-500 mb-2">
-                  Deployment
-                </p>
-                <ul className="text-sm text-zinc-300 space-y-1">
-                  <li>• Vercel</li>
-                  <li>• Serverless</li>
-                  <li>• Edge Runtime</li>
-                  <li>• Turbopack</li>
+              <div className="p-6 rounded-lg border border-red-900/30 bg-red-900/5">
+                <h3 className="font-bold text-red-400 mb-2">Core Values</h3>
+                <ul className="space-y-2 text-gray-300">
+                  <li>• Innovation through integrity</li>
+                  <li>• Practical technology solutions</li>
+                  <li>• Continuous improvement</li>
+                  <li>• Collaborative development</li>
+                  <li>• Impact-driven work</li>
                 </ul>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* CTA Section */}
-        <CTASection />
-
-        {/* FAQ Section */}
-        <section className="mt-16">
-          <h2 className="text-3xl font-bold mb-8 text-white">
-            <span className="text-red-600 dark:text-red-500">Frequently</span>{" "}
-            Asked Questions
-          </h2>
-          <div className="space-y-6">
-            {/* FAQ Item 1 */}
-            <div className="border border-zinc-800 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-white mb-2">
-                How does the digital twin work?
-              </h3>
-              <p className="text-zinc-300">
-                The system uses RAG (Retrieval-Augmented Generation) to search a
-                personal profile database, then generates natural responses using
-                Groq's AI engine. It speaks in first person as if the person is
-                answering questions about themselves.
+          {/* Goals & Passions */}
+          <section className="border-t border-red-900/30 pt-8">
+            <h2 className="text-3xl font-bold mb-4 text-red-400">Goals & Passions</h2>
+            <div className="space-y-4 text-gray-300 leading-relaxed">
+              <p>
+                My primary goal is to advance the field of AI, particularly in making RAG systems and intelligent
+                chatbots more accessible and powerful. I want to build systems that can understand context, learn from
+                interactions, and provide genuinely helpful responses.
+              </p>
+              <p>
+                I'm passionate about open-source contributions, mentoring junior developers, and exploring the
+                intersection of databases and AI. I believe that the future belongs to those who can seamlessly
+                integrate machine learning into practical applications.
               </p>
             </div>
+          </section>
 
-            {/* FAQ Item 2 */}
-            <div className="border border-zinc-800 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-white mb-2">
-                What data does it have access to?
-              </h3>
-              <p className="text-zinc-300">
-                The digital twin has access to professional profile data
-                including experience, projects, skills, and leadership examples.
-                This data is loaded into the vector database for semantic search.
-              </p>
-            </div>
-
-            {/* FAQ Item 3 */}
-            <div className="border border-zinc-800 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Is this production-ready?
-              </h3>
-              <p className="text-zinc-300">
-                Yes! This system is built with production best practices,
-                including type-safe TypeScript, proper error handling, Vercel
-                deployment compatibility, and comprehensive documentation.
-              </p>
-            </div>
-
-            {/* FAQ Item 4 */}
-            <div className="border border-zinc-800 rounded-lg p-6">
-              <h3 className="text-lg font-semibold text-white mb-2">
-                Can I customize the theme or persona?
-              </h3>
-              <p className="text-zinc-300">
-                Absolutely! The chatbot system includes a Persona class that
-                allows customization of name, traits, tone, and speaking
-                patterns. The theme can be modified through Tailwind CSS classes.
-              </p>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-red-600 dark:border-red-700 mt-16">
-        <div className="mx-auto max-w-4xl px-6 py-8 text-center text-zinc-400">
-          <p>
-            © 2024 Digital Twin. Built with{" "}
-            <span className="text-red-600 dark:text-red-500">Next.js 16</span>,
-            Groq, and{" "}
-            <a
-              href="https://upstash.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-red-600 dark:text-red-500 hover:text-red-700 dark:hover:text-red-400 transition"
-            >
-              Upstash
+          {/* Resume */}
+          <section className="border-t border-red-900/30 pt-8">
+            <a href="#" className="inline-block">
+              <Button className="bg-red-600 hover:bg-red-700">Download Resume</Button>
             </a>
-            .
-          </p>
+          </section>
         </div>
-      </footer>
+      </div>
     </div>
   )
 }

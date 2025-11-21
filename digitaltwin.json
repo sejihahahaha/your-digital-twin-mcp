@@ -4,7 +4,7 @@
     "title": "BS Information Technology Major in Artificial Intelligence, Database Certified",
     "location": "Tuguegarao City, Cagayan, Philippines",
     "summary": "Passionate BS Information Technology student with hands-on experience in web development, database management, and Laravel framework. Skilled in problem-solving and eager to leverage technology to create efficient and user-friendly solutions. Dedicated to continuous learning and contributing to innovative projects in the IT field.",
-    "elevator_pitch": "Hello, I’m Krystel Lingat, a BSIT student specializing in Artificial Intelligence and database management. I’m dedicated to applying technology to develop effective and impactful solutions",
+    "elevator_pitch": "Hello, I'm Krystel Lingat, a BSIT student specializing in Artificial Intelligence and database management. I'm dedicated to applying technology to develop effective and impactful solutions",
     "contact": {
       "email": "krystellingat23@gmail.com",
       "linkedin": "www.linkedin.com/in/krystel-lingat-1a474b398",
@@ -12,6 +12,15 @@
       "portfolio": ""
     }
   },
+
+  "education": [
+    {
+      "school": "Saint Paul University Philippines",
+      "degree": "BS Information Technology Major in Artificial Intelligence",
+      "duration": "2022 – Present",
+      "notes": "Database Certified"
+    }
+  ],
 
   "salary_location": {
     "current_salary_range": "N/A",
@@ -45,7 +54,10 @@
         }
       ],
       "technical_skills_used": ["Google Workspace", "Trello", "basic event management tools"],
-      "leadership_examples": ["Led planning meetings, assigned roles, and motivated members to meet deadlines", "Negotiated with other org leaders to align schedules"],
+      "leadership_examples": [
+        "Led planning meetings, assigned roles, and motivated members to meet deadlines",
+        "Negotiated with other org leaders to align schedules"
+      ],
       "budget_managed": "₱5,000–₱10,000 for events",
       "team_size_managed": "3–5"
     },
@@ -70,7 +82,10 @@
         }
       ],
       "technical_skills_used": ["Microsoft Office", "basic data analysis", "collaborative tools"],
-      "leadership_examples": ["Coordinated team meetings and delegated research topics", "Led volunteer groups, coordinated with community leaders"],
+      "leadership_examples": [
+        "Coordinated team meetings and delegated research topics",
+        "Led volunteer groups, coordinated with community leaders"
+      ],
       "budget_managed": "₱3,000–₱5,000 for project materials",
       "team_size_managed": "3–5"
     },
@@ -121,7 +136,7 @@
       "situation": "Tuguegarao City lacked a centralized online platform to promote tourist spots and events.",
       "task": "Assisted in designing, organizing content, and implementing the website.",
       "action": "Helped structure website layout, contributed to front-end development, and tested functionality across devices.",
-      "result": "Developed a functional tourism page showcasing Tuguegarao City’s attractions, improving accessibility and awareness.",
+      "result": "Developed a functional tourism page showcasing Tuguegarao City's attractions, improving accessibility and awareness.",
       "technologies": ["HTML", "CSS", "JavaScript", "basic web design tools"],
       "team_size": 6,
       "budget_managed": "None"
@@ -169,7 +184,7 @@
       "situation": "During a community clean-up and tree-planting initiative, volunteers were uncoordinated, risking inefficient execution of the event.",
       "task": "I was responsible for organizing the event and leading a small group of volunteers to ensure smooth operations.",
       "action": "Planned the activity schedule and assigned roles to volunteers. Coordinated logistics including materials and venue setup. Motivated volunteers and ensured tasks were completed on time.",
-      "result": "Event completed successfully with 50+ participants. Improved teamwork, volunteer engagement, and contributed positively to the community’s environmental goals."
+      "result": "Event completed successfully with 50+ participants. Improved teamwork, volunteer engagement, and contributed positively to the community's environmental goals."
     },
     {
       "situation": "Multiple student organizations collaborated for inter-school events, requiring unified planning and scheduling to avoid conflicts.",
@@ -212,20 +227,26 @@
   "skills": {
     "technical": {
       "programming_languages": [
-        {"language": "Python", "years": 3, "proficiency": "Advanced", "frameworks": ["Flask", "FastAPI"]},
-        {"language": "PHP", "years": 2, "proficiency": "Intermediate", "frameworks": ["Laravel"]},
-        {"language": "JavaScript", "years": 2, "proficiency": "Intermediate", "frameworks": ["React", "Node.js"]}
+        { "language": "Python", "years": 3, "proficiency": "Advanced", "frameworks": ["Flask", "FastAPI"] },
+        { "language": "PHP", "years": 2, "proficiency": "Intermediate", "frameworks": ["Laravel"] },
+        { "language": "JavaScript", "years": 2, "proficiency": "Intermediate", "frameworks": ["React", "Node.js"] }
       ],
       "databases": ["MySQL (3 years)", "Upstash Vector DB (1 year)", "MongoDB (1 year)"],
       "cloud_platforms": ["AWS (1 year)"],
       "ai_ml": ["RAG systems", "Vector databases", "Groq API", "Claude AI integration"]
     },
-    "soft_skills": ["Teamwork & Collaboration", "Problem-solving & Analytical Thinking", "Leadership & Event Organization", "Communication & Coordination", "Time Management"],
+    "soft_skills": [
+      "Teamwork & Collaboration",
+      "Problem-solving & Analytical Thinking",
+      "Leadership & Event Organization",
+      "Communication & Coordination",
+      "Time Management"
+    ],
     "certifications": ["Database Certified 2025"]
   },
 
   "meta": {
-    "last_updated": "2025-11-18",
+    "last_updated": "2025-11-20",
     "notes": "Digital Twin JSON compiled with real information provided by Krystel Lingat."
   }
 }
