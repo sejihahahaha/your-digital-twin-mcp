@@ -3,16 +3,21 @@
     "name": "Krystel Lingat",
     "title": "BS Information Technology Major in Artificial Intelligence, Database Certified",
     "location": "Tuguegarao City, Cagayan, Philippines",
-    "summary": "Passionate BS Information Technology student with hands-on experience in web development, database management, and Laravel framework. Skilled in problem-solving and eager to leverage technology to create efficient and user-friendly solutions. Dedicated to continuous learning and contributing to innovative projects in the IT field.",
-    "elevator_pitch": "Hello, I'm Krystel Lingat, a BSIT student specializing in Artificial Intelligence and database management. I'm dedicated to applying technology to develop effective and impactful solutions",
+    "summary": "Passionate BSIT student specializing in AI, web development, database management, and Laravel framework. Skilled in problem-solving, scripting, and creating efficient, user-friendly systems.",
+    "elevator_pitch": "Hello, I'm Krystel Lingat, a 4th-year BSIT student specializing in AI and database management, dedicated to developing effective and innovative technological solutions.",
     "contact": {
       "email": "krystellingat23@gmail.com",
       "linkedin": "www.linkedin.com/in/krystel-lingat-1a474b398",
       "github": "https://github.com/sejihahahaha",
       "portfolio": ""
+    },
+    "personal_details": {
+      "graduation_status": "Not yet graduated",
+      "current_year": "4th Year",
+      "favorite_color": "Red",
+      "girlfriend": "Charm Claire S. Costales"
     }
   },
-
   "education": [
     {
       "school": "Saint Paul University Philippines",
@@ -21,209 +26,153 @@
       "notes": "Database Certified"
     }
   ],
-
   "salary_location": {
     "current_salary_range": "N/A",
     "salary_expectations": "Negotiable",
     "location_preferences": ["Manila", "Asia", "America", "Australia"],
     "relocation_willing": true,
-    "remote_experience": "Since senior high school, I have held officer roles where I collaborated with members from different organizations both inside and outside my school. I enjoy working with peers on projects and coordinating tasks effectively, demonstrating strong teamwork and communication skills even in virtual or distributed settings.",
+    "remote_experience": "Since senior high school, I have collaborated with various organizations inside and outside school. I enjoy teamwork, coordinating tasks, and working effectively in virtual settings.",
     "travel_availability": "Yes",
-    "visa_work_authorization": "Philippine Citizen"
+    "visa_work_authorization": "Philippine Citizen",
+    "work_preference": "Hybrid"
   },
-
   "experience": [
     {
       "company": "Saint Paul University Philippines – Various Student Organizations",
       "title": "Officer / Student Leader",
       "duration": "2022 – Present",
-      "company_context": "Student organizations focused on leadership development, community engagement, and collaborative projects across school and external activities.",
-      "team_structure": "5–20 members per organization, including officers and general members",
+      "company_context": "Student organizations focused on leadership development, community engagement, and collaborative events.",
+      "team_structure": "5–20 members per organization",
       "achievements_star": [
         {
-          "situation": "Multiple student organizations needed to coordinate joint events despite members being in different locations or classes.",
-          "task": "I was responsible for organizing and facilitating communication among the teams.",
-          "action": "Coordinated meetings, delegated tasks, and used online collaboration tools to ensure smooth planning and execution.",
-          "result": "Successfully executed several inter-organizational events, increasing participation and engagement by 30%"
+          "situation": "Multiple student organizations needed to coordinate joint events despite conflict in schedules.",
+          "task": "Organize communication and planning across teams.",
+          "action": "Led meetings, delegated tasks",
+          "result": "Executed multiple inter-organizational events, increasing participation by 30%."
         },
         {
-          "situation": "Some events faced low peer engagement due to scheduling conflicts.",
-          "task": "Ensure maximum participation from organization members.",
-          "action": "Collected feedback, adjusted schedules, and created a communication plan to keep members informed.",
-          "result": "Improved event attendance by 40% and strengthened collaboration across organizations."
+          "situation": "Some events had low engagement due to conflicts.",
+          "task": "Improve attendance and participation.",
+          "action": "Collected feedback and optimized scheduling.",
+          "result": "Attendance increased by 40%, improving event success."
         }
       ],
-      "technical_skills_used": ["Google Workspace", "Trello", "basic event management tools"],
-      "leadership_examples": [
-        "Led planning meetings, assigned roles, and motivated members to meet deadlines",
-        "Negotiated with other org leaders to align schedules"
-      ],
-      "budget_managed": "₱5,000–₱10,000 for events",
+      "technical_skills_used": ["Google Workspace", "Trello", "Event planning tools"],
+      "leadership_examples": ["Led planning meetings", "Negotiated schedules with other organizations"],
+      "budget_managed": "₱5,000–₱10,000",
       "team_size_managed": "3–5"
     },
     {
       "company": "Saint Paul University Philippines – Academic and Community Projects",
       "title": "Project Team Member / Collaborator",
       "duration": "2022 – Present",
-      "company_context": "Academic and community-focused projects organized by student groups to address social, environmental, and technological challenges.",
-      "team_structure": "4–10 members per project",
+      "company_context": "Collaborative academic and community projects addressing social, technological, and environmental issues.",
+      "team_structure": "4–10 members",
       "achievements_star": [
         {
-          "situation": "The team needed to organize a community clean-up and tree-planting activity in the local area.",
-          "task": "I was responsible for coordinating volunteers and managing logistics.",
-          "action": "Created a volunteer sign-up system, assigned roles, and ensured materials were ready for the activity.",
-          "result": "Successfully engaged 50+ participants, improved community participation, and contributed to environmental sustainability."
+          "situation": "A community clean-up lacked coordinated volunteers.",
+          "task": "Organize the volunteers and logistics.",
+          "action": "Created sign-up systems, assigned roles, and prepared materials.",
+          "result": "Engaged 50+ participants and improved community involvement."
         },
         {
-          "situation": "During an academic project, our team had to present a research-based solution on IT or AI-related topics.",
-          "task": "Conduct research, organize findings, and assist in the presentation.",
-          "action": "Compiled data, prepared slides, and collaborated with team members to rehearse the presentation.",
-          "result": "Our project received recognition for clarity and thoroughness, and we earned top marks from faculty evaluators."
+          "situation": "An academic research project required clear data presentation.",
+          "task": "Assist in research, documentation, and presentation.",
+          "action": "Compiled findings, made slides, and rehearsed with the team.",
+          "result": "Project received recognition and top marks."
         }
       ],
-      "technical_skills_used": ["Microsoft Office", "basic data analysis", "collaborative tools"],
-      "leadership_examples": [
-        "Coordinated team meetings and delegated research topics",
-        "Led volunteer groups, coordinated with community leaders"
-      ],
-      "budget_managed": "₱3,000–₱5,000 for project materials",
+      "technical_skills_used": ["Microsoft Office", "Data analysis basics", "Collaboration tools"],
+      "leadership_examples": ["Coordinated research tasks", "Led volunteer groups"],
+      "budget_managed": "₱3,000–₱5,000",
       "team_size_managed": "3–5"
     },
     {
       "company": "Saint Paul University Philippines – Thesis / Capstone Project",
       "title": "Project Team Member",
       "duration": "2024 – Present",
-      "company_context": "Capstone project for the BS Information Technology program, aimed at developing Sci Linx, a system to improve collaboration and resource sharing among students and faculty in scientific projects.",
+      "company_context": "Capstone project developing Sci Linx, a robotic laboratory delivery and collaboration system.",
       "team_structure": "2 members",
       "achievements_star": [
         {
-          "situation": "Students and researchers struggled to collaborate efficiently and share resources for scientific projects.",
-          "task": "Contribute to the development and testing of the Sci Linx system.",
-          "action": "Assisted in designing database structures, implemented key features, and collaborated closely with the team member to ensure functionality.",
-          "result": "Produced a functional prototype of Sci Linx, which streamlined collaboration and received positive feedback from faculty."
+          "situation": "Laboratory staff needed a safer and more efficient way to transport tools.",
+          "task": "Help develop and test the Sci Linx robot system.",
+          "action": "Designed databases, implemented backend features, and tested functions.",
+          "result": "Created a functional robotic prototype that received positive faculty feedback."
         }
       ],
-      "technical_skills_used": ["Laravel", "SQL", "database management", "basic system testing", "teamwork"],
-      "leadership_examples": ["Supported task delegation and provided input on design and development decisions"],
-      "budget_managed": "None",
+      "technical_skills_used": ["Laravel", "SQL", "Robot control logic", "System testing", "Team collaboration"],
       "team_size_managed": 2
     }
   ],
-
   "projects_star_format": [
     {
-      "project_name": "Sci Linx – Capstone / Thesis Project",
-      "situation": "Students and faculty struggled to collaborate and share resources efficiently for scientific projects.",
-      "task": "As a team member, I assisted in the development, database design, and testing of the system.",
-      "action": "Helped design the database structure, implemented key features using Laravel and SQL, and tested the system for functionality.",
-      "result": "Produced a functional prototype of Sci Linx that improved collaboration efficiency and received positive feedback from faculty.",
-      "technologies": ["Laravel", "SQL", "database management", "basic system testing"],
+      "project_name": "Sci Linx – Robotic Laboratory Tool Delivery System",
+      "situation": "Labs needed a safer and more efficient way to transport tools.",
+      "task": "Develop and test system functions.",
+      "action": "Designed database, implemented automation logic, and tested robot operations.",
+      "result": "Built a functional robotic system that enhanced laboratory operations.",
+      "technologies": ["Laravel", "Python", "SQL", "Robot Navigation Logic", "AI/LLM Integration"],
       "team_size": 2,
       "budget_managed": "None"
     },
     {
       "project_name": "Clinic Management System",
-      "situation": "Manual record-keeping and patient management in clinics caused delays and errors.",
-      "task": "Assisted in developing the system, managing databases, and implementing features.",
-      "action": "Designed database structure, implemented patient registration, scheduling, and record retrieval features using Laravel, and tested system functionality.",
-      "result": "Developed a functional system that improved record-keeping, reduced errors, and streamlined clinic operations.",
-      "technologies": ["Laravel", "MySQL", "PHP", "HTML/CSS"],
-      "team_size": 3,
-      "budget_managed": "None"
+      "situation": "Clinics struggled with manual records and slow processes.",
+      "task": "Build a digital management system.",
+      "action": "Designed database, built features for records, scheduling, and patient management.",
+      "result": "Improved clinic operations by reducing manual errors and speeding up access.",
+      "technologies": ["Laravel", "PHP", "MySQL", "HTML/CSS", "JavaScript"],
+      "team_size": 3
     },
     {
       "project_name": "Tuguegarao Tourism Page",
-      "situation": "Tuguegarao City lacked a centralized online platform to promote tourist spots and events.",
-      "task": "Assisted in designing, organizing content, and implementing the website.",
-      "action": "Helped structure website layout, contributed to front-end development, and tested functionality across devices.",
-      "result": "Developed a functional tourism page showcasing Tuguegarao City's attractions, improving accessibility and awareness.",
-      "technologies": ["HTML", "CSS", "JavaScript", "basic web design tools"],
-      "team_size": 6,
-      "budget_managed": "None"
+      "situation": "Tourism information lacked accessibility online.",
+      "task": "Create an online promotional website.",
+      "action": "Built the layout, designed UI, and tested responsiveness.",
+      "result": "Published an informative and visually appealing tourism website.",
+      "technologies": ["HTML", "CSS", "JavaScript", "UI Design Tools", "Responsive Web Design"],
+      "team_size": 6
     },
     {
       "project_name": "Digital Twin – Personal AI Assistant",
-      "situation": "Need for a personalized AI assistant that can provide information and simulate real-time interaction.",
-      "task": "Provided personal data, tested the system, and helped refine AI responses.",
-      "action": "Supplied academic and personal info, tested interactive functionality, and gave feedback to improve accuracy and personalization.",
-      "result": "Developed a functional digital twin capable of answering questions, providing summaries, and simulating conversations.",
-      "technologies": ["Python", "RAG (Retrieval-Augmented Generation)", "AI/LLM integration", "database management"],
-      "team_size": 1,
-      "budget_managed": "None"
+      "situation": "Needed a personalized AI assistant for answering queries and summarizing data.",
+      "task": "Provide data and help refine AI.",
+      "action": "Integrated knowledge base and tested conversational accuracy.",
+      "result": "Created a fully functioning personalized AI assistant.",
+      "technologies": ["Python", "RAG", "Vector Databases", "LLM Integration", "API Systems"],
+      "team_size": 1
     },
     {
       "project_name": "Weather AI Chatbot",
-      "situation": "Users needed a quick way to get accurate weather updates.",
-      "task": "Designed, developed, and deployed the chatbot as a solo project.",
-      "action": "Built a chatbot that fetches real-time weather via API integration, designed the interface, and tested performance.",
-      "result": "Developed a fully functional AI chatbot providing instant and reliable weather updates.",
-      "technologies": ["Python", "API integration", "AI/NLP tools", "chatbot frameworks"],
-      "team_size": 1,
-      "budget_managed": "None"
+      "situation": "Users needed quick access to weather information.",
+      "task": "Build a real-time weather chatbot.",
+      "action": "Integrated weather APIs, designed interface, and optimized response accuracy.",
+      "result": "Launched a working weather chatbot for reliable forecasts.",
+      "technologies": ["Python", "API Integration", "Chatbot Frameworks", "AI/NLP Tools", "JSON Processing"],
+      "team_size": 1
     },
     {
       "project_name": "Face Detection Attendance System",
-      "situation": "Manual attendance tracking was slow and error-prone.",
-      "task": "Assisted in developing and testing the facial recognition system.",
-      "action": "Implemented facial recognition, integrated with a database for attendance records, and tested system accuracy.",
-      "result": "Created a functional attendance system that reduced errors and improved efficiency with real-time monitoring.",
-      "technologies": ["Python", "OpenCV", "SQL", "basic UI tools"],
-      "team_size": 5,
-      "budget_managed": "None"
+      "situation": "Manual attendance tracking caused delays and errors.",
+      "task": "Build automated face-recognition attendance.",
+      "action": "Used OpenCV for detection, connected to database, and tested accuracy.",
+      "result": "Delivered an efficient attendance system with real-time detection.",
+      "technologies": ["Python", "OpenCV", "SQL", "Image Processing", "Basic UI"],
+      "team_size": 5
     }
   ],
-
-  "leadership_examples_star": [
-    {
-      "situation": "Multiple student organizations needed to coordinate a joint school event, but members were from different classes and schedules, making planning difficult.",
-      "task": "As an officer, I was responsible for organizing the event, facilitating communication, and ensuring all tasks were completed on time.",
-      "action": "Scheduled and led virtual and in-person planning meetings. Delegated responsibilities for different aspects of the event (logistics, program flow, promotion). Used collaboration tools like Google Workspace and Trello to streamline communication and track progress.",
-      "result": "Successfully organized the joint event with high participation and engagement. Strengthened inter-organizational collaboration and set a standard for smooth event execution."
-    },
-    {
-      "situation": "During a community clean-up and tree-planting initiative, volunteers were uncoordinated, risking inefficient execution of the event.",
-      "task": "I was responsible for organizing the event and leading a small group of volunteers to ensure smooth operations.",
-      "action": "Planned the activity schedule and assigned roles to volunteers. Coordinated logistics including materials and venue setup. Motivated volunteers and ensured tasks were completed on time.",
-      "result": "Event completed successfully with 50+ participants. Improved teamwork, volunteer engagement, and contributed positively to the community's environmental goals."
-    },
-    {
-      "situation": "Multiple student organizations collaborated for inter-school events, requiring unified planning and scheduling to avoid conflicts.",
-      "task": "I assisted in organizing the event, coordinating schedules, and ensuring clear communication across all groups.",
-      "action": "Coordinated with leaders from different organizations to align event schedules. Helped assign responsibilities and track progress for each event segment. Provided updates and feedback to improve overall planning efficiency.",
-      "result": "Facilitated smooth execution of events with minimal conflicts. Demonstrated strong organizational, teamwork, and problem-solving skills while successfully organizing events."
-    }
-  ],
-
-  "quantifications": [
-    "Increased student engagement in events by 40% through coordinated inter-organizational planning and effective communication.",
-    "Managed a 2-member team for the Sci Linx Capstone Project, delivering a functional prototype on schedule.",
-    "Reduced manual errors in clinic record-keeping by 70% by assisting in the development of the Clinic Management System.",
-    "Engaged 50+ participants in a community clean-up and tree-planting activity, completing the project efficiently and on time.",
-    "Developed a Weather AI Chatbot and Digital Twin AI assistant, implementing 100% of planned features for real-time interaction and personalized responses.",
-    "Improved online visibility of Tuguegarao City tourism information by 30% through the creation of a functional tourism page.",
-    "Reduced attendance tracking time by 80% using the Face Detection Attendance System with automated facial recognition.",
-    "Organized 5+ successful school events as an officer, ensuring high participation, effective coordination, and smooth execution.",
-    "Streamlined team collaboration across multiple student organizations, increasing task completion rate by 35% using digital tools like Google Workspace and Trello.",
-    "Tested and implemented AI/LLM responses in the Digital Twin project, improving accuracy of user-specific answers by 90%."
-  ],
-
-  "open_source_and_publications": {
-    "open_source_contributions": [],
-    "speaking_and_writing": []
-  },
-
   "skills_proficiency": {
     "Python": 5,
     "Laravel": 3,
     "SQL / MySQL": 5,
     "HTML / CSS / JavaScript": 3,
     "OpenCV": 3,
-    "AI / LLM Integration (RAG, Chatbots, Digital Twin)": 3,
+    "AI / LLM Integration": 3,
     "PHP": 3,
     "Google Workspace": 5,
-    "Trello / Project Management Tools": 5
+    "Trello": 5
   },
-
   "skills": {
     "technical": {
       "programming_languages": [
@@ -232,8 +181,16 @@
         { "language": "JavaScript", "years": 2, "proficiency": "Intermediate", "frameworks": ["React", "Node.js"] }
       ],
       "databases": ["MySQL (3 years)", "Upstash Vector DB (1 year)", "MongoDB (1 year)"],
-      "cloud_platforms": ["AWS (1 year)"],
-      "ai_ml": ["RAG systems", "Vector databases", "Groq API", "Claude AI integration"]
+      "cloud_platforms": ["AWS (1 year)", "Vercel", "Netlify", "Heroku"],
+      "ai_ml": [
+        "RAG systems",
+        "Vector databases",
+        "GPT/LLaMA/Mistral integration",
+        "Groq API",
+        "Claude AI integration"
+      ],
+      "web_frameworks": ["Next.js", "Nuxt.js"],
+      "api_technologies": ["REST", "GraphQL"]
     },
     "soft_skills": [
       "Teamwork & Collaboration",
@@ -244,9 +201,57 @@
     ],
     "certifications": ["Database Certified 2025"]
   },
-
+  "hobbies": {
+    "gaming": ["Minecraft", "GTA"],
+    "movies": ["Jennifer's Body", "10 Things I Hate About You", "Freaky Friday", "Scott Pilgrim vs. the World"],
+    "music": ["Grunge", "Rock", "Indie"],
+    "other": ["Scrabble", "Fashion"]
+  },
+  "personality": {
+    "communication_style": "Adapts based on setting: formal and precise at work; friendly and approachable outside work.",
+    "preferred_tone": "Formal",
+    "handle_sensitive_questions": "Formally"
+  },
+  "relationships": {
+    "girlfriend": "Charm Claire S. Costales",
+    "discussion_boundaries": "Yes, some topics are avoided."
+  },
+  "organizations": [
+    {
+      "name": "JPCS-SPUP Chapter",
+      "positions": ["Treasurer 2022–2023", "Treasurer 2025–2026"]
+    },
+    {
+      "name": "Google Developer Student Club",
+      "positions": ["Creatives Core 2022–2023"]
+    },
+    {
+      "name": "PSG-SITE",
+      "positions": ["2nd Year Mayor 2023–2024", "Secretary PSG Site 2025–2026"]
+    },
+    {
+      "name": "PSG-UNIWIDE",
+      "positions": ["SITE Representative 2024–2025"]
+    }
+  ],
+  "achievements": [
+    "1st yr 1st sem Dean's Lister",
+    "1st yr 2nd sem Dean's Lister",
+    "2nd yr 1st sem Dean's Lister",
+    "2nd yr 2nd sem Dean's Lister"
+  ],
+  "work_goals": {
+    "current_internship": true,
+    "preferred_companies": ["Multimedia", "Data Analyst related"],
+    "post_graduation_plan": "Start working immediately after graduation"
+  },
+  "digital_twin_settings": {
+    "remember_past_conversations": true,
+    "strict_validation_mode": true,
+    "professional_tone_priority": true
+  },
   "meta": {
-    "last_updated": "2025-11-20",
-    "notes": "Digital Twin JSON compiled with real information provided by Krystel Lingat."
+    "last_updated": "2025-11-23",
+    "notes": "Updated Digital Twin JSON including personal preferences, skills, projects, hobbies, organizations, achievements, and digital twin behavioral rules."
   }
 }
